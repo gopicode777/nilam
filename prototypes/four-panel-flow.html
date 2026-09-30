@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Tamil Nadu AI Land Audit</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--pg:#dcebf8;--pn:#e8f2fc;--cd:#fff;--ink:#0c2350;--mu:#54698c;--ln:#cfe0f2;--nv:#0d2a5e;--nv2:#0a1d47;--cy:#38e3ea;--tl:#12b5c4;--gb:#d8f3de;--gt:#1f8f45;--ab:#fde7c2;--at:#b76e00;--rb:#fad3d3;--rt:#c93030;--nb:#e6ebf2;--nt:#5d6b80;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--pg:#08142b;--pn:#0f2140;--cd:#132a4f;--ink:#e6efff;--mu:#9db2d3;--ln:#25406c;--gb:#12351f;--gt:#5fd484;--ab:#3d2d0b;--at:#f5b94e;--rb:#3f1a1a;--rt:#ff8080;--nb:#1c2f4d;--nt:#a5b4cb}}
+:root[data-theme=dark]{--pg:#08142b;--pn:#0f2140;--cd:#132a4f;--ink:#e6efff;--mu:#9db2d3;--ln:#25406c;--gb:#12351f;--gt:#5fd484;--ab:#3d2d0b;--at:#f5b94e;--rb:#3f1a1a;--rt:#ff8080;--nb:#1c2f4d;--nt:#a5b4cb}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}*{box-sizing:border-box}
+body{margin:0;font-family:Poppins,system-ui,sans-serif;background:var(--pg);color:var(--ink);font-size:14px}
+button{font:inherit;cursor:pointer}:focus-visible{outline:2px solid var(--cy);outline-offset:2px}
+header{background:linear-gradient(100deg,#08214f,#0d3a86 60%,#0a2c6b);color:#fff;padding:16px 22px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:center}
+header h1{margin:0;font-size:clamp(24px,4vw,38px);font-weight:700}header h1 b{color:var(--cy)}header p{margin:2px 0 0;color:#d7e6fb}
+.hr{font-size:13px;color:#d7e6fb;max-width:300px}.hr b{display:block;color:#fff;font-size:15px}
+.flow{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;padding:18px;max-width:1500px;margin:auto}
+.pnl{background:var(--pn);border:1px solid var(--ln);border-radius:16px;padding:14px;position:relative;min-width:0}
+.pnl:not(:last-child)::after{content:"›";position:absolute;right:-17px;top:46%;width:22px;height:22px;border-radius:50%;background:var(--nv);color:#fff;text-align:center;line-height:20px;font-size:16px;z-index:2}
+.ph{display:flex;gap:10px;align-items:center;margin-bottom:12px}.ph i{flex:none;width:34px;height:34px;border-radius:50%;background:var(--nv);color:#fff;font-style:normal;font-weight:700;display:grid;place-items:center;box-shadow:0 0 0 3px var(--cy)}
+.ph b{font-size:16px;display:block;line-height:1.2}.ph small{color:var(--mu)}
+.card{background:var(--cd);border:1px solid var(--ln);border-radius:12px;padding:12px}
+label{display:block;font-size:12px;font-weight:600;margin-bottom:10px}select,input[type=text]{width:100%;margin-top:4px;padding:9px 10px;border:1px solid var(--ln);border-radius:8px;background:var(--cd);color:var(--ink);font:inherit}
+.err{color:var(--rt);font-size:12px;margin:4px 0}
+.btn{width:100%;border:0;border-radius:9px;padding:11px;background:var(--nv);color:#fff;font-weight:600;transition:transform .15s}.btn:hover{transform:translateY(-1px)}.btn:disabled{opacity:.5;cursor:not-allowed;transform:none}
+.btn.g{background:var(--cd);color:var(--ink);border:1px solid var(--ln)}
+.docs{display:grid;grid-template-columns:1fr 1fr;gap:10px}.doc{background:var(--cd);border:1px solid var(--ln);border-radius:12px;padding:10px;text-align:center;font-size:12px}
+.doc b{display:block;font-size:13px;margin:4px 0}.doc .ic{font-size:26px}.doc .up{display:block;background:var(--nb);border-radius:7px;padding:6px;margin-top:6px;cursor:pointer;color:var(--mu);font-size:11px}
+.doc.ok{border-color:var(--gt)}.doc.ok .up{background:var(--gb);color:var(--gt);font-weight:600;word-break:break-all}
+.drop{margin-top:10px;border:2px dashed var(--tl);border-radius:12px;padding:14px;text-align:center;font-size:12px;color:var(--mu)}.drop.on{background:var(--gb)}.drop u{color:var(--ink);cursor:pointer;font-weight:600}
+.mods{display:grid;gap:7px}.mod{display:flex;gap:10px;align-items:center;background:var(--cd);border:1px solid var(--ln);border-radius:10px;padding:7px 10px;font-size:12px;transition:.3s}
+.mod small{display:block;color:var(--mu);font-size:11px}.mod.done{border-color:var(--gt)}.mod.run{border-color:var(--tl);box-shadow:0 0 0 2px #12b5c433}.mod .s{margin-left:auto;font-weight:700}
+.eng{margin-top:12px;background:linear-gradient(135deg,#0a1d47,#0f3577);color:#fff;border-radius:12px;padding:12px}
+.eng .bar{height:9px;background:#ffffff26;border-radius:9px;overflow:hidden;margin-top:8px}.eng .bar i{display:block;height:100%;background:linear-gradient(90deg,var(--tl),var(--cy));transition:width .4s}
+.rh{display:flex;justify-content:space-between;gap:8px;margin-bottom:10px}.rh b{font-size:16px}
+.grade{background:var(--gb);border-radius:12px;padding:8px 12px;text-align:center;min-width:110px}.grade div{width:38px;height:38px;border-radius:50%;background:var(--gt);color:#fff;font-weight:700;font-size:20px;display:grid;place-items:center;margin:2px auto}
+.grade.b{background:var(--ab)}.grade.b div{background:var(--at)}.grade.c{background:var(--rb)}.grade.c div{background:var(--rt)}
+.rows{background:var(--cd);border:1px solid var(--ln);border-radius:12px}
+.row{border-bottom:1px solid var(--ln);padding:8px 10px}.row:last-child{border:0}
+.row>button{all:unset;display:grid;grid-template-columns:22px 1fr auto;gap:8px;align-items:center;width:100%;cursor:pointer;font-size:12.5px}
+.row>button:focus-visible{outline:2px solid var(--tl)}
+.chip{padding:2px 10px;border-radius:99px;font-size:11px;font-weight:600;white-space:nowrap}
+.g1{background:var(--gb);color:var(--gt)}.a1{background:var(--ab);color:var(--at)}.r1{background:var(--rb);color:var(--rt)}.n1{background:var(--nb);color:var(--nt)}
+.ev{font-size:12px;color:var(--mu);margin:6px 0 0 30px;display:grid;gap:2px}.ev b{color:var(--ink)}
+.rec{margin-top:12px;background:#c9e6f3;border-radius:12px;padding:12px;color:#0c2350}.rec b{color:#0a6a7a}
+.empty{padding:26px 12px;text-align:center;color:var(--mu)}
+footer{background:var(--nv2);color:#fff;padding:14px 22px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:center}
+footer .pill{background:var(--tl);border:0;color:#fff;padding:10px 20px;border-radius:99px;font-weight:600}
+.banner{height:70px;background:linear-gradient(90deg,#3f7d4a,#7aa6b8 40%,#4b7d63);opacity:.9}
+.ti{display:flex;gap:14px;font-size:10px;text-align:center;color:#d7e6fb;max-width:340px}.ti span{flex:1}
+.bi{display:flex;gap:26px;justify-content:center;align-items:center;height:100%;color:#fff;font-size:12px;font-weight:600;flex-wrap:wrap;text-shadow:0 1px 4px #0008}
+.banner{height:auto;min-height:74px;padding:10px}
+.aichip{margin:0 auto 10px;width:74px;height:74px;border-radius:16px;background:linear-gradient(135deg,#0a1d47,#1c5fb8);color:var(--cy);font-weight:700;font-size:26px;display:grid;place-items:center;box-shadow:0 0 0 3px var(--cy),0 0 18px #38e3ea66}
+.plot{border-radius:10px;overflow:hidden;margin-bottom:10px}.plot svg{display:block;width:100%;height:auto}
+.lg{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px;font-size:11px}
+.tnm{opacity:.55;margin:10px auto 0;display:block;width:90px}.slg{font-style:italic;color:var(--nv);text-align:center;font-size:13px;margin-top:6px}
+@media(max-width:1100px){.flow{grid-template-columns:1fr 1fr}.pnl::after{display:none}}
+@media(max-width:640px){.flow{grid-template-columns:1fr;padding:12px}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+@media print{header,footer,.banner,.pnl:not(:last-child),.noprint{display:none!important}.flow{display:block}}
+</style></head><body>
+<header><div><h1>Tamil Nadu <b>AI Land Audit</b></h1><p>Buy land with clarity. Backed by data. Powered by AI.</p></div>
+<div class="hr"><b>From Land Records to Life Decisions</b>Smarter checks. Safer investments. A better Tamil Nadu.</div>
+<div class="ti"><span>🛡️<br>Transparent Land Transactions</span><span>🌱<br>Safer Communities</span><span>📊<br>Stronger Growth</span><span>🤝<br>A Prosperous Tamil Nadu</span></div></header>
+<div class="flow">
+<section class="pnl" id="p1" aria-label="Step 1"></section><section class="pnl" id="p2" aria-label="Step 2"></section>
+<section class="pnl" id="p3" aria-label="Step 3"></section><section class="pnl" id="p4" aria-label="Step 4"></section></div>
+<div class="banner"><div class="bi"><span>🛡️ Safer Investments</span><span>🌱 Stronger Communities</span><span>📈 Sustainable Development</span><span>👥 A Better Tamil Nadu</span></div></div>
+<footer><span>🔍 Verify &nbsp;|&nbsp; 🛡️ Understand &nbsp;|&nbsp; ✔ Invest with Confidence &nbsp;|&nbsp; 🌿 For a Stronger Tamil Nadu</span><button class="pill" onclick="reset()">Land Audit Today. A Safer Tomorrow.</button></footer>
+<script>
+const GEO={"Chengalpattu":{"Tambaram":["Sembakkam","Selaiyur","Perungalathur"],"Sholinganallur":["Sholinganallur","Medavakkam","Perumbakkam"],"Pallavaram":["Pammal","Chromepet"]},
+"Chennai":{"Mylapore":["Mandaveli","Adyar"],"Ambattur":["Ambattur","Korattur"]},
+"Coimbatore":{"Coimbatore North":["Saravanampatti","Vilankurichi"],"Sulur":["Sulur","Kannampalayam"]},
+"Madurai":{"Madurai East":["Anuppanadi","Vilangudi"],"Thirumangalam":["Thirumangalam","Kalligudi"]}};
+const FLOOD={Chengalpattu:1,Chennai:1,Madurai:0,Coimbatore:0};
+const DOCS=[["sale","📄","Sale Deed"],["patta","📗","Patta"],["ec","📘","Encumbrance Certificate (EC)"],["fmb","🗺️","FMB Sketch"]];
+const MODS=[["⚖️","Legal Title Check","Ownership, EC, document chain"],["🗺️","Survey & Boundary Check","FMB, survey match, encroachment"],["🏢","Zoning & Land Use","CMDA / DTCP / Master Plan"],["🛣️","Access Road Verification","Approach, right of way"],["💧","Flood & Environment Risk","Flood zone, waterbodies, CRZ"],["⚡","Utility Availability","Electricity, water, sewerage"],["📊","Market Context Analysis","Guideline value, nearby projects"]];
+const st={f:{district:"",taluk:"",village:"",survey:""},errs:{},files:{},msg:"",pct:-1,res:null};
+let tm;const $=i=>document.getElementById(i);
+const hs=s=>{let x=7;for(const c of s)x=(x*31+c.charCodeAt(0))>>>0;return x};
+const esc=s=>s.replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+function p1(){const f=st.f,e=st.errs,opt=(a,v,ph)=>`<option value="">${ph}</option>`+a.map(x=>`<option ${x==v?"selected":""}>${x}</option>`).join("");
+const tk=f.district?Object.keys(GEO[f.district]):[],vl=f.taluk?GEO[f.district][f.taluk]:[];
+$("p1").innerHTML=`<div class="ph"><i>1</i><div><b>Enter Land Details</b><small>Search the land you want to buy</small></div></div><div class="card">
+<label>District<select onchange="setF('district',this.value)">${opt(Object.keys(GEO),f.district,"Select District")}</select></label>${e.district?`<div class="err">${e.district}</div>`:""}
+<label>Taluk<select onchange="setF('taluk',this.value)" ${f.district?"":"disabled"}>${opt(tk,f.taluk,"Select Taluk")}</select></label>${e.taluk?`<div class="err">${e.taluk}</div>`:""}
+<label>Village<select onchange="setF('village',this.value)" ${f.taluk?"":"disabled"}>${opt(vl,f.village,"Select Village")}</select></label>${e.village?`<div class="err">${e.village}</div>`:""}
+<label>Survey Number<input type="text" value="${esc(f.survey)}" placeholder="e.g. 214/3B" oninput="st.f.survey=this.value"></label>${e.survey?`<div class="err">${e.survey}</div>`:""}
+<button class="btn" onclick="next()">Next ›</button></div>
+<svg class="tnm" viewBox="0 0 100 120" aria-hidden="true"><path d="M38 4 L62 10 L70 30 L64 48 L72 70 L60 92 L48 116 L40 96 L28 76 L20 52 L26 30 Z" fill="#8fc0e6"/></svg><div class="slg">Every piece of land tells a story. Let’s verify it.</div>`}
+function setF(k,v){st.f[k]=v;if(k=="district"){st.f.taluk="";st.f.village=""}if(k=="taluk")st.f.village="";st.errs={};p1()}
+function next(){const f=st.f,e={};if(!f.district)e.district="Select a district";if(!f.taluk)e.taluk="Select a taluk";if(!f.village)e.village="Select a village";
+if(!/^\d{1,5}(\/\d{1,3}[A-Za-z]?)?$/.test(f.survey.trim()))e.survey="Enter a survey number like 214 or 214/3B";st.errs=e;p1();if(!Object.keys(e).length)$("p2").scrollIntoView({behavior:"smooth",block:"nearest"})}
+
+function p2(){$("p2").innerHTML=`<div class="ph"><i>2</i><div><b>Upload Documents</b><small>Add key documents for verification</small></div></div>
+<div class="docs">${DOCS.map(d=>{const u=st.files[d[0]];return`<div class="doc ${u?"ok":""}"><div class="ic">${d[1]}</div><b>${d[2]}</b>${u?`<span class="up">✓ ${esc(u)}</span><button class="up" style="border:0;width:100%" onclick="rm('${d[0]}')">Remove</button>`:`<label class="up" style="margin:6px 0 0;font-weight:500">Upload<input type="file" hidden accept=".pdf,.jpg,.jpeg,.png" onchange="add('${d[0]}',this.files[0])"></label><span style="color:var(--mu);font-size:10px">PDF / JPG</span>`}</div>`}).join("")}</div>
+<div class="drop" id="dz" ondragover="event.preventDefault();this.classList.add('on')" ondragleave="this.classList.remove('on')" ondrop="drop(event)">☁️<br><b>Drag & drop files or <u onclick="$('bf').click()">browse</u></b><br>Supports PDF, JPG, PNG (Max 10 MB each)<input id="bf" type="file" multiple hidden accept=".pdf,.jpg,.jpeg,.png" onchange="[...this.files].forEach(x=>add(null,x))"></div>
+${st.msg?`<div class="err" role="alert">${st.msg}</div>`:""}
+<button class="btn" style="margin-top:10px" onclick="run()" ${st.pct>=0&&st.pct<100?"disabled":""}>Run Land Audit</button>`}
+function add(slot,file){if(!file)return;st.msg="";if(!/\.(pdf|jpe?g|png)$/i.test(file.name)){st.msg=`“${esc(file.name)}” is not supported. Use PDF, JPG or PNG.`;return p2()}
+if(file.size>10485760){st.msg=`“${esc(file.name)}” is over 10 MB. Upload a smaller file.`;return p2()}
+if(!slot){const n=file.name.toLowerCase();slot=/sale|deed/.test(n)?"sale":/patta|chitta/.test(n)?"patta":/ec|encumb/.test(n)?"ec":/fmb|sketch|survey/.test(n)?"fmb":(DOCS.find(d=>!st.files[d[0]])||[])[0];
+if(!slot){st.msg="All four slots are filled. Remove one to add another.";return p2()}}st.files[slot]=file.name;p2()}
+function rm(k){delete st.files[k];p2()}
+function drop(e){e.preventDefault();[...e.dataTransfer.files].forEach(f=>add(null,f))}
+
+function verdict(){const f=st.f,F=st.files,h=hs(f.district+f.village+f.survey.trim().toUpperCase()),b=n=>(h>>n)%10;
+const M=["n","Missing"],rows=[];const R=(name,ico,s,lab,note,chk,src,found,nx)=>rows.push({name,ico,s,lab,note,chk,src,found,nx});
+const own=F.sale&&F.patta;
+R("Ownership & Legal Title","⚖️",own?"g":"n",own?"Clear":"Missing",own?"No major issues":"Upload Sale Deed and Patta","Owner name and title chain","Sale Deed, Patta",own?"Owner on Sale Deed matches Patta for survey "+f.survey:"Required documents not uploaded",own?"Confirm latest Patta on TN e-Services":"Upload both documents");
+R("Encumbrance Check (EC)","📘",F.ec?"g":"n",F.ec?"Clear":"Missing",F.ec?"No active liability":"Upload EC","Registered mortgages and charges","Encumbrance Certificate",F.ec?"No charges found in the certificate period":"No EC uploaded",F.ec?"Refresh EC before registration":"Obtain EC from the sub-registrar office");
+const sv=!F.fmb?["n","Missing","Upload FMB sketch"]:b(2)<3?["a","Minor Risk","Verify on ground"]:["g","Clear","Boundaries match"];
+R("Survey & Boundary","🗺️",sv[0],sv[1],sv[2],"FMB against deed schedule","FMB Sketch",sv[0]=="a"?"Boundary measurement differs by about 1.2 m":sv[0]=="g"?"FMB and deed schedule agree":"No FMB uploaded","Get a licensed surveyor to confirm boundaries");
+R("Land Use & Zoning","🏢",b(4)<8?"g":"a",b(4)<8?"Compliant":"Review",b(4)<8?"As per master plan":"Zone needs confirmation","Zoning in master plan","CMDA / DTCP extract (mock)","Land falls in a residential-use zone","Verify zone with the planning authority");
+R("Access Road","🛣️",b(6)<8?"g":"a",b(6)<8?"Available":"Review",b(6)<8?"Good connectivity":"Right of way unclear","Approach road and right of way","Location data (mock)","Plot has road frontage","Confirm the road is public in revenue records");
+const fl=FLOOD[f.district]?(b(1)<5?["a","Moderate","Near low-risk zone"]:["g","Low","No flood zone"]):["g","Low","No flood zone"];
+R("Flood & Environment Risk","💧",fl[0],fl[1],fl[2],"Flood zone, waterbodies, CRZ","Flood layer (mock)",fl[0]=="a"?"Village has low-lying areas nearby":"No flood zone found","Check with the local WRD office");
+R("Utilities (Power, Water, etc.)","⚡",b(3)<9?"g":"a",b(3)<9?"Available":"Limited",b(3)<9?"Within 1 km":"Extension needed","Electricity, water, sewerage","Utility data (mock)","Services reachable near the plot","Confirm connection charges with TANGEDCO");
+R("Market Value & Potential","📊","g","Positive","Good appreciation","Guideline value and nearby projects","Guideline value data (mock)","Area shows steady demand","Compare with the current guideline value");
+const lit=b(5)<8?["g","Clear","No active cases"]:["a","Review","Case search advised"];
+R("Litigation Check","🧑‍⚖️",lit[0],lit[1],lit[2],"Court case records","eCourts (mock)",lit[0]=="g"?"No active cases found":"A similar survey number appears in case records","Verify case status with a lawyer");
+const acq=h%7==0?["r","High Risk","In notified area"]:["g","Clear","Not in notified area"];
+R("Government Acquisition","🏛️",acq[0],acq[1],acq[2],"Acquisition notifications","Gazette records (mock)",acq[0]=="r"?"Survey falls in a notified acquisition area":"No acquisition notice found","Confirm with the District Collector's office");
+const c=k=>rows.filter(r=>r.s==k).length,red=c("r"),amb=c("a"),mis=c("n");
+const g=red?"C":(amb>1||mis>1)?"B":"A",rec=red?"Do not proceed until the acquisition status is verified.":g=="A"?"Proceed with purchase, subject to normal registration checks.":"Proceed with purchase, subject to verification of highlighted items"+(rows.filter(r=>r.s!="g").slice(0,2).map(r=>r.name.toLowerCase()).join(" and ")?" ("+rows.filter(r=>r.s!="g").slice(0,2).map(r=>r.name).join(" and ")+").":".");
+return{score:rows.reduce((s,x)=>s+(x.s=="g"?10:x.s=="a"?5:0),0),rows,g,rec,label:g=="A"?"Low Risk":g=="B"?"Moderate Risk":"High Risk",tag:g=="A"?"Suitable for Purchase":g=="B"?"Verify Highlighted Items":"Not Recommended Yet"}}
+
+function run(){next();if(Object.keys(st.errs).length)return;st.res=null;st.pct=0;clearInterval(tm);p2();p3();p4();$("p3").scrollIntoView({behavior:"smooth",block:"nearest"});
+tm=setInterval(()=>{st.pct=Math.min(100,st.pct+4);if(st.pct>=100){clearInterval(tm);st.res=verdict();p2();p4()}p3()},220)}
+function p3(){const n=Math.floor(st.pct/(100/MODS.length));
+$("p3").innerHTML=`<div class="ph"><i>3</i><div><b>AI Land Audit Engine</b><small>Multi-source verification. Instant analysis.</small></div></div><div class="aichip">AI</div><div class="mods">${MODS.map((m,i)=>{const d=st.pct>=0&&i<n||st.pct>=100,r=st.pct>=0&&i==n&&st.pct<100;return`<div class="mod ${d?"done":r?"run":""}"><span style="font-size:20px">${m[0]}</span><div><b>${m[1]}</b><small>${m[2]}</small></div><span class="s">${d?"✓":r?"…":""}</span></div>`}).join("")}</div>
+<div class="eng"><b>${st.pct<0?"Ready to analyse":st.pct>=100?"Analysis complete":"Analysing land data…"}</b><div style="font-size:11px;color:#c8dcf7">Combining government records, satellite data and AI models for a comprehensive audit.</div><div class="bar" role="progressbar" aria-valuenow="${Math.max(0,st.pct)}"><i style="width:${Math.max(0,st.pct)}%"></i></div><div style="text-align:right;font-size:12px;margin-top:3px">${Math.max(0,st.pct)}%</div></div>`}
+
+function p4(){const r=st.res,f=st.f,cl={g:"g1",a:"a1",r:"r1",n:"n1"};
+if(!r){$("p4").innerHTML=`<div class="ph"><i>4</i><div><b>Get Your Land Audit Report</b><small>Clear, colour-coded insights</small></div></div><div class="card empty">${st.pct>=0?"Report is being generated…":"Enter land details, upload documents and run the audit to see your report."}</div>`;return}
+$("p4").innerHTML=`<div class="ph"><i>4</i><div><b>Get Your Land Audit Report</b><small>Clear, colour-coded insights</small></div></div><div class="card"><div class="rh"><div><b>Land Audit Report</b><div style="font-size:12px;color:var(--mu)">${f.district} | ${f.taluk} | ${f.village} | S.No ${esc(f.survey.toUpperCase())}</div><div style="font-size:11px;color:var(--mu)">Generated on ${new Date().toLocaleDateString("en-IN",{day:"2-digit",month:"short",year:"numeric"})}</div></div>
+<div class="grade ${r.g=="A"?"":r.g=="B"?"b":"c"}"><small>Overall Risk</small><div>${r.g}</div><b style="font-size:12px">${r.label}</b><br><small>${r.score}/100 · ${r.tag}</small></div></div>
+<div class="plot"><svg viewBox="0 0 300 120" role="img" aria-label="Plot location"><rect width="300" height="120" fill="#7fae6a"/><rect x="0" y="70" width="300" height="50" fill="#a9c47f"/><path d="M0 60 H300" stroke="#e9e4d2" stroke-width="7"/><polygon points="90,25 210,20 220,85 100,92" fill="#f5d94a" fill-opacity=".25" stroke="#f0c419" stroke-width="2.5"/><circle cx="155" cy="55" r="6" fill="#c93030" stroke="#fff" stroke-width="2"/></svg></div>
+<div class="rows">${r.rows.map((x,i)=>`<div class="row"><button aria-expanded="false" onclick="ev(${i},this)"><span>${x.ico}</span><span>${x.name}</span><span class="chip ${cl[x.s]}">${x.lab}</span></button><div id="e${i}" hidden class="ev"><div><b>Checked:</b> ${x.chk}</div><div><b>Source:</b> ${x.src}</div><div><b>Found:</b> ${x.found}</div><div><b>Verify next:</b> ${x.nx}</div>${x.s=="n"?`<div><b>Status:</b> Not verified — official/authorised data was not available for this check.</div>`:""}</div></div>`).join("")}</div>
+<div class="rec"><b>✔ Recommendation</b><br>${r.rec}</div><button class="btn g noprint" style="margin-top:10px" onclick="print()">Print / Save as PDF</button></div>
+<div class="lg"><span class="chip g1">Clear</span><span class="chip a1">Needs verification</span><span class="chip r1">Issue found</span><span class="chip n1">Not verified</span></div>
+<p style="font-size:11px;color:var(--mu)">Tap any row to see the evidence. Missing data is never treated as safe. The score reflects available evidence only and is not legal clearance. Prototype: results use mock data sources.</p>`}
+function ev(i,b){const e=$("e"+i);e.hidden=!e.hidden;b.setAttribute("aria-expanded",!e.hidden)}
+function reset(){clearInterval(tm);st.f={district:"",taluk:"",village:"",survey:""};st.errs={};st.files={};st.msg="";st.pct=-1;st.res=null;[p1,p2,p3,p4].forEach(x=>x());scrollTo({top:0,behavior:"smooth"})}
+[p1,p2,p3,p4].forEach(x=>x());
+</script></body></html>
