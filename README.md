@@ -1,26 +1,30 @@
-# Nilam — Tamil Nadu Land Audit (real application)
+# Nilam — Tamil Nadu Land Audit
 
-React + Tailwind frontend, Node/Express API, SQLite database, real uploads, OCR, rule engine, map and AI assistant.
-The original HTML prototype is kept in `prototype/` for reference only.
+Evidence-first land audit. **FastAPI (Python) + PostgreSQL/SQLite** backend, **React + TypeScript + Tailwind** frontend.
 
-## Run
-    npm install
-    cp server/.env.example server/.env     # add ANTHROPIC_API_KEY for the AI assistant
-    npm run dev                             # web: http://localhost:5173  api: :8080
-Production: `npm run build && NODE_ENV=production npm start` (API serves the built web app on :8080).
-Tests: `npm test -w server`.
+    nilam/
+    ├─ backend/   FastAPI · SQLAlchemy 2 · pytest
+    │  └─ app/    routers/ (HTTP) · services/ (OCR, rules, geo, AI) · models · schemas · auth (single seam)
+    ├─ client/    React 18 · TypeScript · Vite · Tailwind · Leaflet
+    ├─ docs/API.md   full API reference (live Swagger at /api/docs)
+    └─ prototype/    original HTML prototype (reference only)
+
+## Quick start
+    make setup            # venv + pip + npm install, creates backend/.env
+    # add ANTHROPIC_API_KEY in backend/.env for the AI assistant
+    make api              # terminal 1 -> http://localhost:8080  (Swagger: /api/docs)
+    make web              # terminal 2 -> http://localhost:5173
+    make test
+OCR needs system packages: `sudo apt install tesseract-ocr tesseract-ocr-tam poppler-utils`.
+
+## Production (Docker + Postgres)
+    cp backend/.env.example backend/.env && docker compose up --build   # http://localhost:8080
 
 ## What is real
-- Upload PDF/JPG/PNG -> text extraction (pdf-parse) or OCR (Tesseract, English+Tamil) -> candidate fields -> **you confirm/correct**.
-- Rule engine (`server/src/rules.js`): owner-name fuzzy match, survey/sub-division match, extent tolerance 0.5% with unit conversion, missing documents, unverified approvals. Every finding carries its evidence.
-- Score covers only categories that have evidence; the UI always shows the % of framework assessed.
-- Map: OpenStreetMap tiles, Nominatim search, Overpass nearby (hospital, school, bus, waterbodies).
-- AI assistant: Claude, answers only from the case's evidence; needs `ANTHROPIC_API_KEY`.
-- Data is per-user scoped (`owner_id`), all inputs validated (zod), uploads type/size-limited, rate limits, helmet/CSP, audit log.
+Upload -> text/OCR (English+Tamil, scanned PDFs too) -> candidate fields -> **you confirm** -> rule engine (owner fuzzy match, survey/sub-division, extent tolerance with unit conversion, missing docs, unverified approvals) -> evidence-linked findings -> score that covers only what was assessed -> map checks (OpenStreetMap) -> AI Q&A grounded in the case -> printable report.
 
-## Not connected (be honest in the product)
-TNREGINET, DTCP, CMDA, TNGIS, flood/groundwater/CRZ layers need government access. Until then those items stay "unverified".
+## Not connected (shown honestly in the app)
+TNREGINET, DTCP, CMDA, TNGIS, flood/groundwater/CRZ layers need government access.
 
-## Adding login later
-Only `server/src/auth.js` changes (set `req.user` from a verified JWT/session). All queries already filter by `req.user.id`.
-Before public launch also: HTTPS, move SQLite -> Postgres, move uploads -> S3 with encryption, backups, DPDP-Act consent + retention policy.
+## Before public launch
+Real login (`backend/app/auth.py`) · Alembic migrations (currently `create_all`) · S3-compatible encrypted storage for uploads · HTTPS · backups · DPDP-Act consent & retention policy · Redis rate limiting if >1 instance.

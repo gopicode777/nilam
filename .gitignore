@@ -1,4 +1,8 @@
 node_modules
 dist
 .env
-server/data
+__pycache__
+*.pyc
+.venv
+.pytest_cache
+backend/data

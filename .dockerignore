@@ -1,5 +1,7 @@
-node_modules
+**/node_modules
 **/dist
 .git
-server/data
-.env
+backend/data
+**/.env
+**/__pycache__
+.venv
