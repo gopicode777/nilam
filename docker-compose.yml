@@ -1,0 +1,8 @@
+services:
+  app:
+    build: .
+    ports: ["8080:8080"]
+    env_file: server/.env
+    volumes: ["nilam-data:/data"]
+volumes:
+  nilam-data:
